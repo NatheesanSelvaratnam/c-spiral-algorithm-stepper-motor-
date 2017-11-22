@@ -1,32 +1,42 @@
-# Prerequisites
-*.d
+ for (i = 600; i < 1200+150; i++)
+      {
+    //it does this for each point of the circle, so you dont have to run them at the same time
+       angle = i*2*3.14/(360);
+       xPos =angle*0.6*cosE3(i)/1000;
+        yPos = angle*0.6*sinE3(i)/1000;
 
-# Compiled Object files
-*.slo
-*.lo
-*.o
-*.obj
 
-# Precompiled Headers
-*.gch
-*.pch
+       YMax=YMax+yPos ;
+        XMax=XMax+xPos ;
+        if(0 < xPos)
+         {
+             PORTB.F0= 1; //LED ON
+              XStp(xPos);
 
-# Compiled Dynamic libraries
-*.so
-*.dylib
-*.dll
+          }
+       else
+       {
+            PORTB.F0 = 0; //LED OFF
+              XStp(-1*xPos);
+       }
+    if(0 < yPos)
+        {
+        PORTB.F2 = 1; //LED OFF
+      YStp(yPos);
+        }
+       else
+       {
+      PORTB.F2 = 0; //LED OFF
+        YStp(-1*yPos);
+       }
+       if(i==1300){
+         PORTA.F0=0;
+       }
+        PORTB.F0 = 0; //LED OFF
+        PORTB.F2 = 0; //LED OFF
 
-# Fortran module files
-*.mod
-*.smod
-
-# Compiled Static libraries
-*.lai
-*.la
-*.a
-*.lib
-
-# Executables
-*.exe
-*.out
-*.app
+      }
+        PORTA.F0=0;
+       up();
+       //cut();
+       Out();
